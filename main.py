@@ -2,6 +2,7 @@ import csv
 import threading
 import time
 from google_play_scraper import app, reviews
+import os
 
 #Use o arquivo "info.txt" para escolher os apps que irao ser scrapados
 #Basta inserir os ids deles
@@ -62,6 +63,10 @@ def save_reviews(app_id, reviews_list):
 
 
 if __name__ == '__main__':
+
+    if not os.path.exists('data'):
+        os.makedirs('data')
+
     # Abre o arquivo "info.txt"
     # Para usar o programa basta inserir em cada linha o id do aplicativo
     with open('info.txt', 'r') as f:

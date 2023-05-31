@@ -1,7 +1,11 @@
 from sqlalchemy import Column, Integer, String, Text, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Date
-from db import Base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class App(Base):
     __tablename__ = "App"
@@ -26,3 +30,19 @@ class Reviews(Base):
     app_id = Column(Integer, ForeignKey("App.id"), nullable=False)
 
     app_fk = relationship("App", back_populates="Reviews", cascade="all, delete")
+
+database_url = "" #setar como variavel de ambiente
+
+engine = create_engine(database_url)
+
+Base.metadata.create_all(bind=engine) #Cria database, se não existir
+
+def get_db_session():
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db_session = SessionLocal()
+    try:
+        yield db_session
+    except Exception as error:
+        print(error)
+    finally:
+        db_session.close()

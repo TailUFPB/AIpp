@@ -133,6 +133,7 @@ st.markdown(div_tags, unsafe_allow_html=True)
 
 # DO NOT ALTER df_chart. This is the df that's going to be passed to all chart functions
 df_chart = df
+
 df = df.head(10)
 positive = df['positive_sentences'].apply(lambda x: x[1:-1].split("',"))
 negative = df['negative_sentences'].apply(lambda x: x[1:-1].split("',"))

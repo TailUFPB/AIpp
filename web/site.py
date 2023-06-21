@@ -13,11 +13,6 @@ st.sidebar.success("Selecione uma pagina acima!")
 
 df = pd.read_csv("data/games_sentiment.csv")
 df.sort_values('likes', inplace=True, ascending=False)
-df = df.head()
-df = df.reset_index(drop=True)
-
-positive = df['positive_sentences']
-negative = df['negative_sentences']
 
 bot = Image.open('images/bot.png')
 
@@ -87,8 +82,13 @@ st.markdown("""
 
 option = st.selectbox(
     'Qual App você deseja analisar?',
-    df['app_name']
+    df['app_name'].value_counts().index.tolist()
 )
+
+df = df[df['app_name'] == option]
+df = df.head()
+positive = df['positive_sentences']
+negative = df['negative_sentences']
 
 # Exibição dos comentários
 div_positive = "<div class='comments-div' style='flex: 1; min-width: 0;'>"

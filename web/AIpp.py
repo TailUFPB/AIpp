@@ -1,8 +1,66 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
+import matplotlib.pyplot as plt
 import altair as alt
 import ast
+
+def score_plot(scores):
+    plt.clf()
+    colors = ['#ffee00', '#ff8800', '#0080ff', '#000040', '#bfbfbf']
+    plt.pie(scores.tolist(), colors=colors, startangle=90, counterclock=False)
+    
+    plt.size = (5, 5)
+    my_circle = plt.Circle((0, 0), 0.8, color='#101414')
+    plt.title('Score', y=-0.07, fontsize=18, color='white')
+
+    avg = (scores[1] + 2*scores[2] + 3*scores[3] + 4*scores[4] + 5*scores[5]) / sum(scores.values.tolist())
+
+    plt.text(0, 0, f'{avg:.2f}',
+            fontsize=24, ha='center', va='center', color='white')
+    
+    p = plt.gcf()
+    p.gca().add_artist(my_circle)
+
+    return p
+
+def count_pos_reviews_sentiment(reviews_sen):
+    count = 0
+    for sen in reviews_sen:
+        if sen == 1:
+            count += 1
+    
+    return count
+
+def count_neg_reviews_sentiment(reviews_sen):
+    count = 0
+    for sen in reviews_sen:
+        if sen == -1:
+            count += 1
+    
+    return count
+
+def reviews_plot(df):
+    colors = ['#00cf0a', '#a80202']
+
+    count_pos = df.apply(count_pos_reviews_sentiment).sum()
+    count_neg = df.apply(count_neg_reviews_sentiment).sum()
+
+    plt.pie([count_pos, count_neg], colors=colors, startangle=90, counterclock=False)
+    
+    plt.size = (5, 5)
+    my_circle = plt.Circle((0, 0), 0.8, color='#101414')
+    plt.title('Reviews', y=-0.07, fontsize=18, color='white')
+    
+    percentage = (count_pos/(count_pos+count_neg)) * 100
+
+    plt.text(0, 0, f'{percentage:.2f}%',
+            fontsize=22, ha='center', va='center', color='white')
+    
+    p = plt.gcf()
+    p.gca().add_artist(my_circle)
+
+    return p
 
 # Page configs
 st.set_page_config(
@@ -96,6 +154,15 @@ option = st.selectbox(
 
 df = df[df['app_name'] == option]
 app_tags = app_tags[[option, 'sentiment']] #Dataframe com as tags positivas e negativas dos apps
+
+col1, col2 = st.columns(2)
+
+classifications = df['classifications'].apply(lambda x: ast.literal_eval(x))
+reviews_fig = reviews_plot(classifications)
+col1.pyplot(reviews_fig, transparent=True)
+
+fig = score_plot(df['score'].value_counts())
+col2.pyplot(fig, transparent=True)
 
 div_positive_tags = "<div class='tags-div' style='flex: 1; min-width: 0;'>"
 div_positive_tags += "<h4>Características Positivas:</h4>"

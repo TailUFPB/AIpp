@@ -123,17 +123,21 @@ div_tags += div_negative_tags
 div_tags += "</div>"
 st.markdown(div_tags, unsafe_allow_html=True)
 
-df = df.head()
-positive = df['positive_sentences']
-negative = df['negative_sentences']
+df = df.head(10)
+positive = df['positive_sentences'].apply(lambda x: x[1:-1].split("',"))
+negative = df['negative_sentences'].apply(lambda x: x[1:-1].split("',"))
 
 # Exibição dos comentários
 div_positive = "<div class='comments-div' style='flex: 1; min-width: 0;'>"
 div_positive += "<h4>Principais Positivos:</h4>"
 div_positive += "<ul class='comments-list'>"
 
-for comentario in df['positive_sentences']:
-    div_positive += f"<li>{comentario}</li>"
+for comentario in positive[:5]:
+    if comentario[0] != '':
+        div_positive += f"<li>{comentario[0]}</li>"
+    else:
+        comentario = positive.iloc[5]
+        div_positive += f"<li>{comentario[0]}</li>"
 
 div_positive += "</ul>"
 div_positive += "</div>"
@@ -142,8 +146,12 @@ div_negative = "<div class='comments-div' style='flex: 1; min-width: 0;'>"
 div_negative += "<h4>Principais Negativos:</h4>"
 div_negative += "<ul class='comments-list'>"
 
-for comentario in df['negative_sentences']:
-    div_negative += f"<li>{comentario}</li>"
+for comentario in negative[:5]:
+    if comentario[0] != '':
+        div_negative += f"<li>{comentario[0]}</li>"
+    else:
+        comentario = positive.iloc[5]
+        div_negative += f"<li>{comentario[0]}</li>"
 
 div_negative += "</ul>"
 div_negative += "</div>"

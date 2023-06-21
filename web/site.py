@@ -12,6 +12,7 @@ st.set_page_config(
 st.sidebar.success("Selecione uma pagina acima!")
 
 df = pd.read_csv("data/games_sentiment.csv")
+app_tags = pd.read_csv("data/app_tags.csv")
 df.sort_values('likes', inplace=True, ascending=False)
 
 bot = Image.open('images/bot.png')
@@ -86,6 +87,42 @@ option = st.selectbox(
 )
 
 df = df[df['app_name'] == option]
+app_tags = app_tags[[option, 'sentiment']] #Dataframe com as tags positivas e negativas dos apps
+
+div_positive_tags = "<div class='tags-div' style='flex: 1; min-width: 0;'>"
+div_positive_tags += "<h4>Positivas:</h4>"
+div_positive_tags += "<ul class='tags-list'>"
+
+app_pos_tags = app_tags.loc[app_tags['sentiment'] == 1][option] #Separa as tags positivas
+app_pos_tags = list(app_pos_tags.values)
+
+for item in app_pos_tags:
+    item = eval(item)
+    div_positive_tags += f"<li>{item[0].capitalize()}</li>"
+
+div_positive_tags += "</ul>"
+div_positive_tags += "</div>"
+
+div_negative_tags = "<div class='tags-div' style='flex: 1; min-width: 0;'>"
+div_negative_tags += "<h4>Negativas:</h4>"
+div_negative_tags += "<ul class='tags-list'>"
+
+app_neg_tags = app_tags.loc[app_tags['sentiment'] == 0][option] #Separa as tags negativas
+app_neg_tags = list(app_neg_tags.values)
+
+for item in app_neg_tags:
+    item = eval(item)
+    div_negative_tags += f"<li>{item[0].capitalize()}</li>"
+
+div_negative_tags += "</ul>"
+div_negative_tags += "</div>"
+
+div_tags = "<div style='display: flex; padding: 10px;'>"
+div_tags += div_positive_tags
+div_tags += div_negative_tags
+div_tags += "</div>"
+st.markdown(div_tags, unsafe_allow_html=True)
+
 df = df.head()
 positive = df['positive_sentences']
 negative = df['negative_sentences']
@@ -94,16 +131,20 @@ negative = df['negative_sentences']
 div_positive = "<div class='comments-div' style='flex: 1; min-width: 0;'>"
 div_positive += "<h4>Principais Positivos:</h4>"
 div_positive += "<ul class='comments-list'>"
+
 for comentario in df['positive_sentences']:
     div_positive += f"<li>{comentario}</li>"
+
 div_positive += "</ul>"
 div_positive += "</div>"
 
 div_negative = "<div class='comments-div' style='flex: 1; min-width: 0;'>"
 div_negative += "<h4>Principais Negativos:</h4>"
 div_negative += "<ul class='comments-list'>"
+
 for comentario in df['negative_sentences']:
     div_negative += f"<li>{comentario}</li>"
+
 div_negative += "</ul>"
 div_negative += "</div>"
 

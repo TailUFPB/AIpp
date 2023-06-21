@@ -1,11 +1,7 @@
 ,Xbox Game Pass (Beta),GeForce NOW Cloud Gaming,PS Remote Play,Steam Link,sentiment
-0,"('jogo', 226)","('jogo', 1039)","('app', 410)","('app', 225)",1
-1,"('app', 149)","('app', 808)","('controle', 305)","('jogo', 166)",1
-2,"('aplicativo', 58)","('fila', 707)","('aplicativo', 249)","('celular', 127)",1
-3,"('controle', 50)","('aplicativo', 413)","('celular', 200)","('controle', 123)",1
-4,"('serviço', 48)","('tempo', 322)","('ps4', 183)","('aplicativo', 71)",1
-0,"('jogo', 96)","('jogo', 718)","('app', 188)","('jogo', 98)",0
-1,"('app', 56)","('fila', 421)","('controle', 172)","('app', 38)",0
-2,"('game', 46)","('app', 256)","('aplicativo', 117)","('celular', 38)",0
-3,"('aplicativo', 34)","('hora', 238)","('jogo', 116)","('computador', 37)",0
-4,"('celular', 30)","('aplicativo', 190)","('celular', 113)","('controle', 32)",0
+0,"('serviço', 48)","('fortnite', 245)","('ps4', 183)","('steam', 62)",1
+1,"('xbox', 42)","('servidor', 227)","('conexão', 130)","('tela', 54)",1
+2,"('tela', 40)","('conta', 186)","('tela', 88)","('conexão', 48)",1
+0,"('game', 46)","('conta', 188)","('play', 80)","('tela', 28)",0
+1,"('xbox', 13)","('servidor', 115)","('conexão', 77)","('steam', 27)",0
+2,"('atualização', 12)","('geforce', 90)","('tela', 71)","('conexão', 23)",0

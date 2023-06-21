@@ -78,6 +78,12 @@ st.markdown("""
     .comments-div {
         margin-bottom: 20px;
     }
+
+    .tags-list {
+        list-style-type: disc;
+        margin-left: 20px;
+        padding-left: 10px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -90,7 +96,7 @@ df = df[df['app_name'] == option]
 app_tags = app_tags[[option, 'sentiment']] #Dataframe com as tags positivas e negativas dos apps
 
 div_positive_tags = "<div class='tags-div' style='flex: 1; min-width: 0;'>"
-div_positive_tags += "<h4>Positivas:</h4>"
+div_positive_tags += "<h4>Características Positivas:</h4>"
 div_positive_tags += "<ul class='tags-list'>"
 
 app_pos_tags = app_tags.loc[app_tags['sentiment'] == 1][option] #Separa as tags positivas
@@ -104,7 +110,7 @@ div_positive_tags += "</ul>"
 div_positive_tags += "</div>"
 
 div_negative_tags = "<div class='tags-div' style='flex: 1; min-width: 0;'>"
-div_negative_tags += "<h4>Negativas:</h4>"
+div_negative_tags += "<h4>Características Negativas:</h4>"
 div_negative_tags += "<ul class='tags-list'>"
 
 app_neg_tags = app_tags.loc[app_tags['sentiment'] == 0][option] #Separa as tags negativas

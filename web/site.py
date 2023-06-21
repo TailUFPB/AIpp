@@ -2,6 +2,14 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 
+# Page configs
+st.set_page_config(
+    page_title='AIpp',
+    page_icon='⚙️',
+)
+
+# Creating the sidebar
+st.sidebar.success("Selecione uma pagina acima!")
 
 df = pd.read_csv("data/games_sentiment.csv")
 df.sort_values('likes', inplace=True, ascending=False)

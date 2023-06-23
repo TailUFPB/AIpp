@@ -7,11 +7,11 @@ import ast
 
 def score_plot(scores):
     plt.clf()
-    colors = ['#ffee00', '#ff8800', '#0080ff', '#000040', '#bfbfbf']
+    colors = ['#228B22', '#00FF7F', '#FFD700', '#FF0000', '#8B0000']
     plt.pie(scores.tolist(), colors=colors, startangle=90, counterclock=False)
     
     plt.size = (5, 5)
-    my_circle = plt.Circle((0, 0), 0.8, color='#101414')
+    my_circle = plt.Circle((0, 0), 0.75, color='#101414')
     plt.title('Score', y=-0.07, fontsize=18, color='white')
 
     avg = (scores[1] + 2*scores[2] + 3*scores[3] + 4*scores[4] + 5*scores[5]) / sum(scores.values.tolist())
@@ -49,7 +49,7 @@ def reviews_plot(df):
     plt.pie([count_pos, count_neg], colors=colors, startangle=90, counterclock=False)
     
     plt.size = (5, 5)
-    my_circle = plt.Circle((0, 0), 0.8, color='#101414')
+    my_circle = plt.Circle((0, 0), 0.75, color='#101414')
     plt.title('Reviews', y=-0.07, fontsize=18, color='white')
     
     percentage = (count_pos/(count_pos+count_neg)) * 100
